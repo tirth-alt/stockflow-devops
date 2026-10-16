@@ -1,0 +1,18 @@
+# Lab 1: a Deployment whose image tag does not exist.
+# Symptom: pod stuck in ErrImagePull / ImagePullBackOff.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stockflow-broken-image
+  namespace: stockflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: broken-image }
+  template:
+    metadata:
+      labels: { app: broken-image }
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist

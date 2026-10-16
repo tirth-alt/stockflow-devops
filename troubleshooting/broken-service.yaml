@@ -1,0 +1,14 @@
+# Lab 2: a Service whose selector has a typo ("backnd").
+# Symptom: the Service exists but has no endpoints, so every request fails.
+apiVersion: v1
+kind: Service
+metadata:
+  name: stockflow-broken-service
+  namespace: stockflow
+spec:
+  selector:
+    app.kubernetes.io/name: backnd
+    app.kubernetes.io/instance: stockflow
+  ports:
+    - port: 8000
+      targetPort: 8000
