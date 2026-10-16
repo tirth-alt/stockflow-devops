@@ -96,7 +96,7 @@ jobs:
       - uses: azure/setup-helm@v5
       - name: Configure kubectl
         run: |
-          kubectl config use-context "${{ vars.KUBE_CONTEXT || 'minikube' }}"
+          kubectl config use-context "${{ vars.KUBE_CONTEXT || 'stockflow' }}"
           kubectl get nodes
       - name: Deploy with Helm
         run: |
