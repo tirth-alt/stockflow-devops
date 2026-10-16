@@ -109,7 +109,7 @@ HPA evidence: `evidence/hpa-scaling.txt` (2 → 4 → 5 → 6 replicas under loa
 | Criterion | Status |
 |---|---|
 | Root `README.md` explains the app | ✅ |
-| Live demo: commit → pipeline → deployment updates | ✅ pipeline; deploy job needs the self-hosted runner online (see `docs/DEMO.md`) |
+| Live demo: commit → pipeline → deployment updates | ✅ verified: [run 38872489128](https://github.com/tirth-alt/stockflow-devops/actions/runs/38872489128) deployed commit `560b7bf` as Helm revision 5 via the self-hosted runner. Rehearse with `docs/DEMO.md` |
 
 ## Before you submit
 
