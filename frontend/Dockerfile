@@ -1,5 +1,7 @@
 # Stage 1: build the static site with Node.
-FROM node:22-alpine AS build
+# Always runs on the build machine's own CPU: the output is plain HTML/JS/CSS, the same for every
+# architecture, and npm under QEMU arm64 emulation can hang (it froze a CI job for 6 hours).
+FROM --platform=$BUILDPLATFORM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci

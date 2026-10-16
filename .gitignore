@@ -21,9 +21,11 @@ kubeconfig*
 *.tfvars
 !*.tfvars.example
 crash.log
+tfplan
 
 # OS / editors
 .DS_Store
 .idea/
 .vscode/
 *.log
+*.mp4
