@@ -1,0 +1,29 @@
+{{- if .Values.monitoring.enabled }}
+# Tells the Prometheus Operator to scrape the backend Service's /metrics every 15s.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-backend
+  labels:
+    {{- include "stockflow.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "stockflow.selector" (dict "component" "backend" "root" .) | nindent 6 }}
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+---
+# The Grafana sidecar loads any ConfigMap labelled grafana_dashboard=1 as a dashboard.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-dashboard
+  labels:
+    {{- include "stockflow.labels" . | nindent 4 }}
+    grafana_dashboard: "1"
+data:
+  stockflow.json: |-
+    {{- .Files.Get "files/dashboard.json" | nindent 4 }}
+{{- end }}

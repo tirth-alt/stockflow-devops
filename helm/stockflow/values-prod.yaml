@@ -1,0 +1,8 @@
+# EKS example: real hostname, more headroom for autoscaling.
+ingress:
+  enabled: true
+  host: stockflow.example.com
+hpa:
+  maxReplicas: 10
+monitoring:
+  enabled: true

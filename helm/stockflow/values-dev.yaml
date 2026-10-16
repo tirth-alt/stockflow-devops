@@ -1,0 +1,6 @@
+# Local minikube: Ingress on stockflow.local + Prometheus scraping + Grafana dashboard.
+ingress:
+  enabled: true
+  host: stockflow.local
+monitoring:
+  enabled: true
