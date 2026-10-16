@@ -8,12 +8,12 @@ VPC 10.20.0.0/16
  ├── 2 private subnets  (worker nodes)
  ├── Internet gateway + 1 NAT gateway
  └── EKS cluster (Kubernetes 1.36)
-       └── managed node group "main" (2 × t3.medium)
+       └── managed node group "main" (2 × c7i-flex.large)
 ```
 
 ## Cost warning
 
-EKS control plane (~$0.10/h) + NAT gateway (~$0.05/h) + 2 × t3.medium (~$0.09/h) ≈ **$0.25/hour**.
+EKS control plane (~$0.10/h) + NAT gateway (~$0.05/h) + 2 × c7i-flex.large (~$0.09/h) ≈ **$0.25/hour**.
 Run `terraform destroy` as soon as you have your screenshots.
 
 Keep `kubernetes_version` in EKS *standard* support. A version in extended support bills the
