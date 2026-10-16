@@ -68,7 +68,7 @@ function App() {
     <div className="shell">
       <header className="topbar">
         <div className="brand"><span className="brand-box" aria-hidden="true" />StockFlow</div>
-        <span className="store">Northside Hardware · Main stock room</span>
+        <span className="store">Northside Hardware · Main stock room · Aisle 4</span>
         <button className="btn primary" onClick={() => setEditing({})}>Add product</button>
       </header>
 
