@@ -1,5 +1,7 @@
 # Troubleshooting lab
 
+> These commands have `# notes` after them. In zsh (the macOS default), run `setopt interactivecomments` once per terminal, or add it to `~/.zshrc`. Otherwise zsh passes the note to the command as extra arguments.
+
 ## 1. Broken image
 
 ```bash

@@ -21,6 +21,8 @@ control plane at $0.60/h instead of $0.10/h.
 
 ## Run it
 
+> These commands have `# notes` after them. In zsh (the macOS default), run `setopt interactivecomments` once per terminal, or add it to `~/.zshrc`. Otherwise zsh passes the note to the command as extra arguments.
+
 ```bash
 aws configure                     # your own keys, stored in ~/.aws, never in this repo
 aws sts get-caller-identity       # confirm which account you are about to spend in

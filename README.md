@@ -11,6 +11,9 @@ The app itself is intentionally small. The project is about taking it from a lap
 
 ![StockFlow dashboard](docs/evidence/app-desktop.png)
 
+**Submission:** [`docs/SUBMISSION.md`](docs/SUBMISSION.md) maps every GRADING.md deliverable to its file or screenshot in [`docs/evidence/`](docs/evidence/).
+**Demo video (2 min):** [`docs/demo/stockflow-demo.mp4`](docs/demo/stockflow-demo.mp4). It shows a header change committed, the pipeline running (sped up), the new image SHA rolled out by Helm, and the change live through the Ingress.
+
 ## Architecture
 
 ```text
@@ -125,10 +128,14 @@ See [`terraform/README.md`](terraform/README.md). Summary:
 aws configure
 cd terraform && terraform init && terraform plan -out tfplan && terraform apply tfplan
 $(terraform output -raw configure_kubectl)
-terraform destroy      # always, when finished (≈ $0.25/hour while running)
+terraform destroy
 ```
 
+Always run `terraform destroy` when you're finished: the stack costs about $0.25/hour while it runs.
+
 ## Kubernetes with Helm (minikube)
+
+> These commands have `# notes` after them. In zsh (the macOS default), run `setopt interactivecomments` once per terminal, or add it to `~/.zshrc`. Otherwise zsh passes the note to the command as extra arguments.
 
 ```bash
 minikube start -p stockflow --memory=3500 --cpus=4 --addons=ingress,metrics-server
@@ -148,7 +155,12 @@ kubectl get pods,svc,ingress,hpa -n stockflow
 helm list -n stockflow
 ```
 
-**Ingress on macOS (Docker driver):** run `minikube tunnel -p stockflow` in a separate terminal, add `127.0.0.1 stockflow.local` to `/etc/hosts`, then open http://stockflow.local.
+**Ingress on macOS (Docker driver):** add the hostname once with `echo "127.0.0.1 stockflow.local" | sudo tee -a /etc/hosts`, then either:
+
+- `sudo minikube tunnel -p stockflow` and open http://stockflow.local, or
+- without sudo: `kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80` and open http://stockflow.local:8080.
+
+Either way the request goes through the nginx Ingress controller, which routes by hostname. macOS tries mDNS for `.local` names first, so the first request can take about 5 seconds.
 
 **Autoscaling:** `./scripts/load-test.sh`, and in another terminal `kubectl get hpa -n stockflow -w`.
 
