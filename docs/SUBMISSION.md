@@ -51,7 +51,7 @@ API: `GET/POST /api/products`, `GET/PUT/DELETE /api/products/{id}`, `GET /api/pr
 | What to submit | Where |
 |---|---|
 | `.github/workflows/` | [`ci-cd.yml`](../.github/workflows/ci-cd.yml): push to `main` → `test` (pytest + frontend build) → `build-scan-push` (Docker, Trivy, GHCR) → `deploy` (Helm) |
-| Green pipeline run URL | {{RUN_URL}} (demo run). Earlier green run: https://github.com/tirth-alt/stockflow-devops/actions/runs/38940817089, screenshot [`ci-green.png`](evidence/ci-green.png) |
+| Green pipeline run URL | https://github.com/tirth-alt/stockflow-devops/actions/runs/38949206153 (demo run). Earlier green run: https://github.com/tirth-alt/stockflow-devops/actions/runs/38940817089, screenshot [`ci-green.png`](evidence/ci-green.png) |
 | GHCR screenshot with SHA tags | [`ghcr.png`](evidence/ghcr.png): `ghcr.io/tirth-alt/stockflow-backend:<commit-sha>`, no `latest` |
 
 ## M6 DevSecOps (5)
@@ -102,7 +102,7 @@ Autoscaling: [`hpa-scaling.png`](evidence/hpa-scaling.png). Under `scripts/load-
 | What to submit | Where |
 |---|---|
 | Root `README.md` | [`README.md`](../README.md): what the app does, architecture, how to run every part |
-| Live demo or recorded walkthrough | [`docs/demo/stockflow-demo.mp4`](demo/stockflow-demo.mp4): change the header, commit, push, watch the pipeline (sped up), see the new image SHA rolled out by Helm and live through the Ingress. Run: {{RUN_URL}}. Full live-presentation script: [`docs/DEMO.md`](DEMO.md) |
+| Live demo or recorded walkthrough | [`docs/demo/stockflow-demo.mp4`](demo/stockflow-demo.mp4): change the header, commit, push, watch the pipeline (sped up), see the new image SHA rolled out by Helm and live through the Ingress. Run: https://github.com/tirth-alt/stockflow-devops/actions/runs/38949206153. Full live-presentation script: [`docs/DEMO.md`](DEMO.md) |
 
 Troubleshooting lab (README Part N): [`troubleshooting/`](../troubleshooting/), recorded run [`troubleshooting-run.txt`](evidence/troubleshooting-run.txt).
 

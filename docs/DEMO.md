@@ -4,10 +4,13 @@ About 15 minutes. Steps follow the order in the course README. **Say** lines are
 
 ## Before the audience joins (5 min)
 
+> These commands have `# notes` after them. In zsh (the macOS default), run `setopt interactivecomments` once per terminal, or add it to `~/.zshrc`. Otherwise zsh passes the note to the command as extra arguments.
+
 ```bash
+setopt interactivecomments
 cd ~/Desktop/DevOps-class/stockflow-devops
 minikube start -p stockflow                       # cluster with ingress + metrics-server
-sudo minikube tunnel -p stockflow                 # terminal 2, keep open (Ingress on macOS)
+sudo minikube tunnel -p stockflow                 # terminal 2, keep open (or, without sudo: kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80, then use http://stockflow.local:8080)
 kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090   # terminal 3
 kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3001:80   # terminal 4
 cd ~/actions-runner && ./run.sh                   # terminal 5: self-hosted runner for the deploy job
