@@ -39,11 +39,15 @@ spec:
             httpGet: { path: /ready, port: http }
             initialDelaySeconds: 5
             periodSeconds: 10
+            timeoutSeconds: 3
           # Restarts the container if the process hangs. Does not depend on the DB.
+          # Generous timeout: under CPU throttling a busy pod is slow, not dead, and must not be killed.
           livenessProbe:
             httpGet: { path: /health, port: http }
             initialDelaySeconds: 20
             periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 4
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
 ---
