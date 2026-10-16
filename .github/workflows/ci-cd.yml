@@ -47,11 +47,14 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v7
+      # QEMU + Buildx let one tag serve amd64 (EKS nodes) and arm64 (minikube on Apple Silicon).
+      - uses: docker/setup-qemu-action@v4
+      - uses: docker/setup-buildx-action@v4
 
-      - name: Build images (tagged with the commit SHA)
+      - name: Build images for scanning (amd64, tagged with the commit SHA)
         run: |
-          docker build -t $BACKEND_IMAGE:${{ github.sha }} ./backend
-          docker build -t $FRONTEND_IMAGE:${{ github.sha }} ./frontend
+          docker buildx build --load -t $BACKEND_IMAGE:${{ github.sha }} ./backend
+          docker buildx build --load -t $FRONTEND_IMAGE:${{ github.sha }} ./frontend
 
       # Pinned to a commit SHA, not a tag: trivy-action tags were hijacked in March 2026 (CVE-2026-33634).
       - name: Trivy scan - backend
@@ -78,11 +81,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push images
+      # Only reached if both scans passed. Rebuilds from the same cache and adds the arm64 variant.
+      - name: Push multi-arch images (amd64 + arm64)
         if: github.event_name == 'push'
         run: |
-          docker push $BACKEND_IMAGE:${{ github.sha }}
-          docker push $FRONTEND_IMAGE:${{ github.sha }}
+          docker buildx build --platform linux/amd64,linux/arm64 --push -t $BACKEND_IMAGE:${{ github.sha }} ./backend
+          docker buildx build --platform linux/amd64,linux/arm64 --push -t $FRONTEND_IMAGE:${{ github.sha }} ./frontend
 
   # Stage 3 - deploy the exact images this commit produced.
   # Runs on a self-hosted runner that can reach the cluster (the demo laptop running minikube).
