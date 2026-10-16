@@ -95,19 +95,21 @@ jobs:
     needs: build-scan-push
     if: github.event_name == 'push' && vars.DEPLOY_ENABLED == 'true'
     runs-on: [self-hosted, stockflow-deploy]
+    env:
+      # Passed per command instead of `kubectl config use-context`, which would change the laptop's default cluster.
+      KUBE_CONTEXT: ${{ vars.KUBE_CONTEXT || 'stockflow' }}
     steps:
       - uses: actions/checkout@v7
       - uses: azure/setup-helm@v5
-      - name: Configure kubectl
-        run: |
-          kubectl config use-context "${{ vars.KUBE_CONTEXT || 'stockflow' }}"
-          kubectl get nodes
+      - name: Check cluster access
+        run: kubectl --context "$KUBE_CONTEXT" get nodes
       - name: Deploy with Helm
         run: |
           helm upgrade --install stockflow ./helm/stockflow \
+            --kube-context "$KUBE_CONTEXT" \
             --namespace stockflow --create-namespace \
             -f helm/stockflow/values-dev.yaml \
             --set backend.tag=${{ github.sha }} \
             --set frontend.tag=${{ github.sha }} \
             --wait --timeout 5m
-          kubectl get pods -n stockflow
+          kubectl --context "$KUBE_CONTEXT" get deploy,pods -n stockflow -o wide
