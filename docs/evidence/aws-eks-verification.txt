@@ -1,0 +1,44 @@
+$ aws eks describe-cluster --name stockflow-eks
+-------------------------------------------------------------------------------------------
+|                                     DescribeCluster                                     |
++----------+------------------------------------------------------------------------------+
+|  Endpoint|  https://AD69B47DE5B4E4A1860D457D84DD440A.gr7.ap-south-1.eks.amazonaws.com   |
+|  Name    |  stockflow-eks                                                               |
+|  Status  |  ACTIVE                                                                      |
+|  Version |  1.36                                                                        |
++----------+------------------------------------------------------------------------------+
+$ aws eks list-nodegroups / describe-nodegroup
+----------------------------------------------------------------------------
+|                             DescribeNodegroup                            |
++---------+-----------------+-----------------------------------+----------+
+| Desired |    Instance     |               Name                | Status   |
++---------+-----------------+-----------------------------------+----------+
+|  2      |  c7i-flex.large |  main-8cfa3ad41f639137e0d2599c7e  |  ACTIVE  |
++---------+-----------------+-----------------------------------+----------+
+$ aws ec2 describe-vpcs (stockflow-eks-vpc)
+--------------------------------------------------------
+|                     DescribeVpcs                     |
++------------------------+----------------+------------+
+|  vpc-025af89e9244ffcac |  10.20.0.0/16  |  available |
++------------------------+----------------+------------+
+$ aws ec2 describe-subnets
+-------------------------------------------------------------------------------------
+|                                  DescribeSubnets                                  |
++----------------------------------------+-----------------+--------------+---------+
+|  stockflow-eks-vpc-private-ap-south-1a |  10.20.1.0/24   |  ap-south-1a |  False  |
+|  stockflow-eks-vpc-private-ap-south-1b |  10.20.2.0/24   |  ap-south-1b |  False  |
+|  stockflow-eks-vpc-public-ap-south-1a  |  10.20.101.0/24 |  ap-south-1a |  False  |
+|  stockflow-eks-vpc-public-ap-south-1b  |  10.20.102.0/24 |  ap-south-1b |  False  |
++----------------------------------------+-----------------+--------------+---------+
+$ kubectl get nodes -o wide
+NAME                                         STATUS   ROLES    AGE   VERSION               INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                        KERNEL-VERSION                            CONTAINER-RUNTIME
+ip-10-20-1-153.ap-south-1.compute.internal   Ready    <none>   75s   v1.36.4-eks-b9510e3   10.20.1.153   <none>        Amazon Linux 2023.12.20261012   6.18.54-121.166.amzn2023.x86_64 (amd64)   containerd://2.3.5+unknown
+ip-10-20-2-54.ap-south-1.compute.internal    Ready    <none>   75s   v1.36.4-eks-b9510e3   10.20.2.54    <none>        Amazon Linux 2023.12.20261012   6.18.54-121.166.amzn2023.x86_64 (amd64)   containerd://2.3.5+unknown
+$ kubectl get pods -A
+NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
+kube-system   aws-node-fc79d             2/2     Running   0          78s
+kube-system   aws-node-vwqzj             2/2     Running   0          78s
+kube-system   coredns-5b5f57d59c-qvlrl   1/1     Running   0          48s
+kube-system   coredns-5b5f57d59c-rv2rg   1/1     Running   0          48s
+kube-system   kube-proxy-hxqkf           1/1     Running   0          49s
+kube-system   kube-proxy-jp8sx           1/1     Running   0          49s
