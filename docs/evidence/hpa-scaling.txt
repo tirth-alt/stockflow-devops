@@ -1,0 +1,12 @@
+15s <unknown>/60% 2 6 replicas=2
+30s <unknown>/60% 2 6 replicas=2
+45s 150%/60% 2 6 replicas=2
+60s 150%/60% 2 6 replicas=4
+75s 150%/60% 2 6 replicas=4
+90s 150%/60% 2 6 replicas=5
+105s 150%/60% 2 6 replicas=5
+120s 214%/60% 2 6 replicas=6
+135s 214%/60% 2 6 replicas=6
+Unable to connect to the server: net/http: TLS handshake timeout
+165s 214%/60% 2 6 replicas=6
+180s <unknown>/60% 2 6 replicas=6

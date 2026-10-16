@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.12, pytest-9.1.1, pluggy-1.7.0 -- .venv/bin/python3.12
+rootdir: /Users/apple/Desktop/DevOps-class/stockflow-devops/backend
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1
+collecting ... collected 11 items
+
+tests/test_api.py::test_health PASSED                                    [  9%]
+tests/test_api.py::test_ready_checks_database PASSED                     [ 18%]
+tests/test_api.py::test_create_and_get_product PASSED                    [ 27%]
+tests/test_api.py::test_list_products PASSED                             [ 36%]
+tests/test_api.py::test_duplicate_sku_is_rejected PASSED                 [ 45%]
+tests/test_api.py::test_negative_quantity_is_rejected PASSED             [ 54%]
+tests/test_api.py::test_update_product PASSED                            [ 63%]
+tests/test_api.py::test_delete_product PASSED                            [ 72%]
+tests/test_api.py::test_missing_product_returns_404 PASSED               [ 81%]
+tests/test_api.py::test_stats PASSED                                     [ 90%]
+tests/test_api.py::test_metrics_endpoint PASSED                          [100%]
+
+=============================== warnings summary ===============================
+../../../../../...venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 11 passed, 1 warning in 0.05s =========================
