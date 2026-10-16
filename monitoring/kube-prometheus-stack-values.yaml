@@ -1,0 +1,36 @@
+# Values for the kube-prometheus-stack chart: installs Prometheus (+ Operator) and Grafana.
+# Sized to fit next to the app on a ~3.5 GB minikube node.
+
+alertmanager:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    # Pick up ServiceMonitors from every namespace, not only ones labelled for this Helm release.
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    retention: 2d
+    resources:
+      requests: { cpu: 100m, memory: 400Mi }
+      limits: { memory: 800Mi }
+
+grafana:
+  enabled: true
+  # Admin password is generated into the Secret kube-prometheus-stack-grafana (not committed here).
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      searchNamespace: ALL   # load the StockFlow dashboard ConfigMap from the app namespace
+  resources:
+    requests: { cpu: 50m, memory: 128Mi }
+
+# minikube does not expose these control-plane endpoints; disabling avoids permanently DOWN targets.
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
