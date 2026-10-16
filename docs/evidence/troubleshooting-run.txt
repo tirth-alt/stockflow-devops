@@ -1,0 +1,38 @@
+$ kubectl apply -f troubleshooting/broken-image.yaml
+deployment.apps/stockflow-broken-image created
+$ kubectl get pods -n stockflow -l app=broken-image
+NAME                                      READY   STATUS             RESTARTS   AGE
+stockflow-broken-image-5d4f654776-qdfc6   0/1     ImagePullBackOff   0          25s
+$ kubectl describe pod (events)
+  Normal   Scheduled  25s               default-scheduler  Successfully assigned stockflow/stockflow-broken-image-5d4f654776-qdfc6 to stockflow
+  Normal   BackOff    24s               kubelet            spec.containers{backend}: Back-off pulling image "ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist"
+  Warning  Failed     24s               kubelet            spec.containers{backend}: Error: ImagePullBackOff
+  Normal   Pulling    9s (x2 over 25s)  kubelet            spec.containers{backend}: Pulling image "ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist"
+  Warning  Failed     8s (x2 over 24s)  kubelet            spec.containers{backend}: Failed to pull image "ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist": rpc error: code = NotFound desc = failed to pull and unpack image "ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist": failed to resolve reference "ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist": ghcr.io/tirth-alt/stockflow-backend:v9.9.9-does-not-exist: not found
+  Warning  Failed     8s (x2 over 24s)  kubelet            spec.containers{backend}: Error: ErrImagePull
+$ kubectl set image ... (fix)
+deployment.apps/stockflow-broken-image image updated
+Waiting for deployment "stockflow-broken-image" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "stockflow-broken-image" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "stockflow-broken-image" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "stockflow-broken-image" rollout to finish: 1 old replicas are pending termination...
+deployment "stockflow-broken-image" successfully rolled out
+NAME                                      READY   STATUS        RESTARTS   AGE
+stockflow-broken-image-5d4f654776-qdfc6   0/1     Terminating   0          27s
+stockflow-broken-image-89c74bd45-s9t7b    1/1     Running       0          1s
+deployment.apps "stockflow-broken-image" deleted from stockflow namespace
+
+$ kubectl apply -f troubleshooting/broken-service.yaml
+service/stockflow-broken-service created
+$ kubectl get endpoints -n stockflow stockflow-broken-service
+NAME                             ADDRESSTYPE   PORTS     ENDPOINTS   AGE
+stockflow-broken-service-wpxcg   IPv4          <unset>   <unset>     0s
+NAME                       ENDPOINTS   AGE
+stockflow-broken-service   <none>      0s
+$ kubectl get pods --show-labels | grep backend
+stockflow-backend-f447fd5f6-lq44c app.kubernetes.io/instance=stockflow,app.kubernetes.io/name=backend,pod-template-hash=f447fd5f6
+stockflow-backend-f447fd5f6-msnl4 app.kubernetes.io/instance=stockflow,app.kubernetes.io/name=backend,pod-template-hash=f447fd5f6
+service/stockflow-broken-service patched
+NAME                       ENDPOINTS                           AGE
+stockflow-broken-service   10.244.0.27:8000,10.244.0.29:8000   3s
+service "stockflow-broken-service" deleted from stockflow namespace

@@ -24,6 +24,7 @@ kubectl delete -f troubleshooting/broken-image.yaml     # clean up
 kubectl apply -f troubleshooting/broken-service.yaml
 kubectl get svc -n stockflow
 kubectl get endpoints -n stockflow stockflow-broken-service   # ENDPOINTS: <none>
+kubectl get endpointslices -n stockflow -l kubernetes.io/service-name=stockflow-broken-service  # newer API, same story
 kubectl get pods -n stockflow --show-labels | grep backend    # real label: app.kubernetes.io/name=backend
 ```
 
@@ -36,3 +37,5 @@ kubectl patch svc stockflow-broken-service -n stockflow \
 kubectl get endpoints -n stockflow stockflow-broken-service   # now lists the backend pod IPs
 kubectl delete -f troubleshooting/broken-service.yaml
 ```
+
+A recorded run of both labs is in [`docs/evidence/troubleshooting-run.txt`](../docs/evidence/troubleshooting-run.txt).
