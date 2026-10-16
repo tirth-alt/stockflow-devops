@@ -1,0 +1,35 @@
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Creating...
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [00m10s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [00m20s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [00m30s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [00m40s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [00m50s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [01m00s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Still creating... [01m10s elapsed]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Creation complete after 1m19s [id=stockflow-eks:main-8cfa3ad41f639137e0d2599c7e]
+module.eks.aws_eks_addon.this["kube-proxy"]: Creating...
+module.eks.aws_eks_addon.this["coredns"]: Creating...
+module.eks.aws_eks_addon.this["coredns"]: Still creating... [00m10s elapsed]
+module.eks.aws_eks_addon.this["kube-proxy"]: Still creating... [00m10s elapsed]
+module.eks.aws_eks_addon.this["coredns"]: Creation complete after 15s [id=stockflow-eks:coredns]
+module.eks.aws_eks_addon.this["kube-proxy"]: Still creating... [00m20s elapsed]
+module.eks.aws_eks_addon.this["kube-proxy"]: Creation complete after 25s [id=stockflow-eks:kube-proxy]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0] (deposed object a3e0a82f): Destroying... [id=stockflow-eks:main-f32dd4aeeef1e92fadbe0bfa63]
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Destruction complete after 8s
+
+Apply complete! Resources: 3 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+cluster_endpoint = "https://AD69B47DE5B4E4A1860D457D84DD440A.gr7.ap-south-1.eks.amazonaws.com"
+cluster_name = "stockflow-eks"
+configure_kubectl = "aws eks update-kubeconfig --region ap-south-1 --name stockflow-eks"
+private_subnets = [
+  "subnet-0c56e020754d9b144",
+  "subnet-06596da3f8bed6fc2",
+]
+public_subnets = [
+  "subnet-08c4df95971d8a445",
+  "subnet-0ae9860843d4d0863",
+]
+vpc_id = "vpc-025af89e9244ffcac"
