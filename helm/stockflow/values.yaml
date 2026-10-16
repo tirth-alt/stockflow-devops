@@ -1,0 +1,41 @@
+# Image tags are the Git commit SHA, set by CI (--set backend.tag=<sha>). There is no "latest" default on purpose.
+backend:
+  image: ghcr.io/tirth-alt/stockflow-backend
+  tag: ""
+  replicas: 2          # ignored while the HPA is enabled; the HPA owns the replica count
+  resources:
+    requests: { cpu: 100m, memory: 128Mi }
+    limits: { cpu: 500m, memory: 256Mi }
+
+frontend:
+  image: ghcr.io/tirth-alt/stockflow-frontend
+  tag: ""
+  replicas: 2
+  resources:
+    requests: { cpu: 20m, memory: 32Mi }
+    limits: { cpu: 200m, memory: 64Mi }
+
+imagePullSecrets: []
+
+# In-cluster PostgreSQL for the classroom/minikube demo. On AWS you would use Amazon RDS instead.
+postgres:
+  image: postgres:16-alpine
+  database: stockflow
+  username: stockflow
+  password: change-me   # override with --set postgres.password=... ; never commit a real one
+  storage: 1Gi
+
+ingress:
+  enabled: false
+  className: nginx
+  host: stockflow.local
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 60
+
+# Needs kube-prometheus-stack installed first (it provides the ServiceMonitor CRD and Grafana sidecar).
+monitoring:
+  enabled: false
