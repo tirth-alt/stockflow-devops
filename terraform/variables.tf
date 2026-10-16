@@ -29,9 +29,9 @@ variable "vpc_cidr" {
 }
 
 variable "node_instance_type" {
-  description = "EC2 instance type for the worker nodes"
+  description = "EC2 instance type for the worker nodes. AWS Free-plan accounts can only launch free-tier-eligible types (e.g. c7i-flex.large, not t3.medium)."
   type        = string
-  default     = "t3.medium"
+  default     = "c7i-flex.large"
 }
 
 variable "node_desired_size" {
