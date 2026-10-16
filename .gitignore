@@ -29,3 +29,4 @@ tfplan
 .vscode/
 *.log
 *.mp4
+!docs/demo/*.mp4
