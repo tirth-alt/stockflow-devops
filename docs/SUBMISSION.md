@@ -2,7 +2,8 @@
 
 - **Repository:** https://github.com/tirth-alt/stockflow-devops (public)
 - **Domain:** inventory management for a hardware store's stock room (own domain, not the TaskBoard reference)
-- **Demo video:** [`docs/demo/stockflow-demo.mp4`](demo/stockflow-demo.mp4): change → commit → CI pipeline → deploy → new version live through the Ingress
+- **Demo video:** [`demo/stockflow-demo.mp4`](../demo/stockflow-demo.mp4): change → commit → CI pipeline → deploy → new version live through the Ingress
+- **Slide deck:** [`demo/stockflow-presentation.pptx`](../demo/stockflow-presentation.pptx) (PDF: [`demo/stockflow-presentation.pdf`](../demo/stockflow-presentation.pdf))
 - **Evidence:** every screenshot and log below is in [`docs/evidence/`](evidence/). Screenshots were taken of real Terminal.app and Chrome windows on the demo Mac. The AWS Console shots were taken by me in the console.
 
 Each section lists GRADING.md's "What to Submit" items for that module, and where each one is.
@@ -102,7 +103,7 @@ Autoscaling: [`hpa-scaling.png`](evidence/hpa-scaling.png). Under `scripts/load-
 | What to submit | Where |
 |---|---|
 | Root `README.md` | [`README.md`](../README.md): what the app does, architecture, how to run every part |
-| Live demo or recorded walkthrough | [`docs/demo/stockflow-demo.mp4`](demo/stockflow-demo.mp4): change the header, commit, push, watch the pipeline (sped up), see the new image SHA rolled out by Helm and live through the Ingress. Run: https://github.com/tirth-alt/stockflow-devops/actions/runs/38949206153. Full live-presentation script: [`docs/DEMO.md`](DEMO.md) |
+| Live demo or recorded walkthrough | [`demo/stockflow-demo.mp4`](../demo/stockflow-demo.mp4): change the header, commit, push, watch the pipeline (sped up), see the new image SHA rolled out by Helm and live through the Ingress. Run: https://github.com/tirth-alt/stockflow-devops/actions/runs/38949206153. Full live-presentation script: [`docs/DEMO.md`](DEMO.md) |
 
 Troubleshooting lab (README Part N): [`troubleshooting/`](../troubleshooting/), recorded run [`troubleshooting-run.txt`](evidence/troubleshooting-run.txt).
 

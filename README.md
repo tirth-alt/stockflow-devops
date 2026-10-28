@@ -11,8 +11,9 @@ The app itself is intentionally small. The project is about taking it from a lap
 
 ![StockFlow dashboard](docs/evidence/app-desktop.png)
 
+**Slide deck:** [`demo/stockflow-presentation.pptx`](demo/stockflow-presentation.pptx) (PDF: [`demo/stockflow-presentation.pdf`](demo/stockflow-presentation.pdf)).
 **Submission:** [`docs/SUBMISSION.md`](docs/SUBMISSION.md) maps every GRADING.md deliverable to its file or screenshot in [`docs/evidence/`](docs/evidence/).
-**Demo video (2 min):** [`docs/demo/stockflow-demo.mp4`](docs/demo/stockflow-demo.mp4). It shows a header change committed, the pipeline running (sped up), the new image SHA rolled out by Helm, and the change live through the Ingress.
+**Demo video (2 min):** [`demo/stockflow-demo.mp4`](demo/stockflow-demo.mp4). It shows a header change committed, the pipeline running (sped up), the new image SHA rolled out by Helm, and the change live through the Ingress.
 
 ## Architecture
 
@@ -196,5 +197,6 @@ helm/stockflow/     Helm chart (deployments, services, ingress, HPA, ServiceMoni
 monitoring/         kube-prometheus-stack values (Prometheus + Grafana)
 troubleshooting/    Broken manifests + walkthrough
 scripts/            HPA load test
+demo/               Demo video and slide deck (pptx + pdf)
 docs/               Demo script, submission checklist, evidence screenshots
 ```
